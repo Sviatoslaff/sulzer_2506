@@ -73,7 +73,8 @@ intRow = 4
 Dim iRow
 Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in the excel file
 	' check the value in the Excel file
-	condValue = Replace(ArticlesExcel.Cells(intRow, 31).Value, ",", "")
+	condValue = Format(num, "##0,00") 
+	'condValue = Replace(ArticlesExcel.Cells(intRow, 31).Value, ",", "") 'no need
 	If Not IsNumeric(condValue)	Then
 		MsgBox "Значение в строке" & intRow & "не является числом: " & condValue, vbSystemModal Or vbExclamation
 		Continue 	' skip this value 
