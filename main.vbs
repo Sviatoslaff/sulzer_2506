@@ -55,11 +55,16 @@ iLastRow =pmu.Range("A" & pmu.Rows.Count).End(xlUp).Row
 'WScript.Echo iLastRow
 
 '4. Вставка цен
-session.findById("wnd[0]/tbar[0]/btn[3]").press()
-session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").setFocus
-session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").caretPosition = 2
-session.findById("wnd[0]").sendVKey(2)
-session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select()
+
+'session.findById("wnd[0]/tbar[0]/btn[3]").press()
+'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").setFocus
+'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").caretPosition = 2
+'session.findById("wnd[0]").sendVKey(2)
+'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select()
+
+session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/ctxtRV45A-MABNR[1,0]").caretPosition = 12
+session.findById("wnd[0]").sendVKey 2
+session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select			'Conditions tab click
 WScript.Sleep 300
 tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 Set grid = session.findById(tblArea)
@@ -101,7 +106,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 		
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[1]/btn[19]").press()
-			iRow = qtyRows + 100
+			iRow = qtyRows + 1000
 		End If	
 		iRow = iRow + 1
 	Loop
