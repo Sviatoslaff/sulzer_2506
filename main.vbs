@@ -13,6 +13,7 @@ Dim bExit, bAbort, txtStatus
 Dim intRow : intRow = 4
 Dim iCol
 Dim targetCondition, condValue
+Dim num
 
 '1. Запрашиваем файл QTN и получаем номер qtn, массив значений для последующего заполнения SAP Quotation
 Dim excelFile
@@ -73,13 +74,14 @@ intRow = 4
 Dim iRow
 Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in the excel file
 	' check the value in the Excel file
-	condValue = Format(num, "##0,00") 
-	MsgBox condValue
+	condValue = ArticlesExcel.Cells(intRow, 31).Value 
 	'condValue = Replace(ArticlesExcel.Cells(intRow, 31).Value, ",", "") 'no need
 	If Not IsNumeric(condValue)	Then
 		MsgBox "Значение в строке" & intRow & "не является числом: " & condValue, vbSystemModal Or vbExclamation
 		Continue 	' skip this value 
 	End If
+	condValue = Format(num, "##0,00") 
+	MsgBox condValue
 	' Assign the target condition
 	if condValue  >= 0 Then
 		targetCondition = "ZLS3"
