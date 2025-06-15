@@ -35,7 +35,7 @@ If Not IsNumeric(qtn) Then
 	WScript.Quit
 End If
 
-WScript.Quit
+'WScript.Quit
 
 '2.0 - открываем транзакцию
  session.findById("wnd[0]").maximize
@@ -71,7 +71,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	condValue = Replace(ArticlesExcel.Cells(intRow, 31).Value, ",", "")
 	If Not IsNumeric(condValue)	Then
 		MsgBox "Значение в строке" & intRow & "не является числом: " & condValue, vbSystemModal Or vbExclamation
-		Continue Do		' skip this value 
+		Continue 	' skip this value 
 	End If
 	' Assign the target condition
 	if condValue  >= 0 Then
