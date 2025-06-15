@@ -74,6 +74,7 @@ Dim iRow
 Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in the excel file
 	' check the value in the Excel file
 	condValue = Format(num, "##0,00") 
+	MsgBox condValue
 	'condValue = Replace(ArticlesExcel.Cells(intRow, 31).Value, ",", "") 'no need
 	If Not IsNumeric(condValue)	Then
 		MsgBox "Значение в строке" & intRow & "не является числом: " & condValue, vbSystemModal Or vbExclamation
@@ -89,7 +90,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 	Set grid = session.findById(tblArea)
 	qtyRows = grid.rowCount - 1
-	MsgBox qtyRows
+	'MsgBox qtyRows
 	iRow = 0
 	WScript.Sleep 300
 	Do Until iRow > qtyRows
