@@ -78,7 +78,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 		MsgBox "Значение в строке" & intRow & "не является числом: " & condValue, vbSystemModal Or vbExclamation
 		Continue 	' skip this value 
 	End If
-	condValue = FormatNumber(condValue, ,,,,0) 
+	condValue = FormatNumber(condValue,,,,0) 
 	condValue = Replace(condValue, ".", ",")
 	MsgBox condValue
 	' Assign the target condition
