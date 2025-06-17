@@ -62,7 +62,7 @@ iLastRow =pmu.Range("A" & pmu.Rows.Count).End(xlUp).Row
 'session.findById("wnd[0]").sendVKey(2)
 'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select()
 
-session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/ctxtRV45A-MABNR[1,0]").caretPosition = 12
+session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/ctxtRV45A-MABNR[1,0]").caretPosition = 1
 session.findById("wnd[0]").sendVKey 2
 session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select			'Conditions tab click
 WScript.Sleep 300
