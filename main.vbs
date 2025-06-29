@@ -1,10 +1,6 @@
 Option Explicit
 Const xlUp = -4162, xlPasteValues = -4163, xlNone = -4142
 Public Const firstCol = 39, lastCol = 45
-Public Const cond1 = "ZLS3", cond2 = "ZLD3"
-
-Public Const resNoTemplate = " template not found. Check the template.  "
-Public Const resNoBOM = "Nothing is inside this BOM. First make the BOM."
 
 Dim tblArea
 Dim qtn, plant, sorg, template, serno
@@ -97,7 +93,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	WScript.Sleep 300
 	Do Until iRow > qtyRows
 		'MsgBox "Row: " & intRow
-		if grid.GetCell(iRow, 1).Text = cond1 Or grid.GetCell(iRow, 1).Text = cond2 Then
+		if grid.GetCell(iRow, 1).Text = "ZLS3" Or grid.GetCell(iRow, 1).Text = "ZLD3" Then
 			WScript.Sleep 100
 			grid.GetCell(iRow, 1).setFocus()
 			grid.GetCell(iRow, 1).caretPosition = 2	
