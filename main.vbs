@@ -123,7 +123,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 		
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[1]/btn[19]").press()
-			iRow = qtyRows + 1000
+			'iRow = qtyRows + 1000
 		End If	
 		iRow = iRow + 1
 	Loop
