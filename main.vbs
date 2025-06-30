@@ -98,6 +98,12 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 		Set grid = session.findById(tblArea)
 		if grid.GetCell(iRow, 1).Text = "ZLS3" Or grid.GetCell(iRow, 1).Text = "ZLD3" Then
+			If grid.GetCell(iRow, 1).Text = "ZLS3" Then
+				condS = True
+			End If
+			If grid.GetCell(iRow, 1).Text = "ZLD3" Then
+				condD = True
+			End If			
 			WScript.Sleep 100
 			grid.GetCell(iRow, 1).setFocus()
 			grid.GetCell(iRow, 1).caretPosition = 2	
@@ -107,12 +113,6 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]/usr/txtKOMV-KBETR").caretPosition = 15
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
-			If grid.GetCell(iRow, 1).Text = "ZLS3" Then
-				condS = True
-			End If
-			If grid.GetCell(iRow, 1).Text = "ZLD3" Then
-				condD = True
-			End If
 		End If	
 		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 		Set grid = session.findById(tblArea)		
