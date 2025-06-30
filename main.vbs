@@ -118,13 +118,12 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]/usr/txtKOMV-KBETR").caretPosition = 15
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
-		
-			session.findById("wnd[0]").sendVKey(0)
-			session.findById("wnd[0]/tbar[1]/btn[19]").press()
 			'iRow = qtyRows + 1000
 		End If	
 		iRow = iRow + 1
 	Loop
+	session.findById("wnd[0]").sendVKey(0)
+	session.findById("wnd[0]/tbar[1]/btn[19]").press()	
 	intRow = intRow + 1
 
 Loop
