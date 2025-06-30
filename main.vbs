@@ -91,7 +91,7 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	'MsgBox qtyRows
 	iRow = 0
 	condS = False
-	condV = False
+	condD = False
 	WScript.Sleep 300
 	Do Until  condS And condD 'iRow > qtyRows
 		'MsgBox "Row: " & intRow
