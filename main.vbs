@@ -8,7 +8,7 @@ Dim qtyRows, rowCount, visibleRows, sapRow, goto_pos, grid, cell
 Dim bExit, bAbort, txtStatus
 Dim intRow : intRow = 4
 Dim iCol
-Dim targetCondition, condValue
+Dim targetCondition, condValue, condS, condD
 
 '1. Запрашиваем файл QTN и получаем номер qtn, массив значений для последующего заполнения SAP Quotation
 Dim excelFile
@@ -90,8 +90,10 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	qtyRows = grid.rowCount - 1
 	'MsgBox qtyRows
 	iRow = 0
+	condS = False
+	condV = False
 	WScript.Sleep 300
-	Do Until iRow > qtyRows
+	Do Until  condS And condD 'iRow > qtyRows
 		'MsgBox "Row: " & intRow
 		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 		Set grid = session.findById(tblArea)
@@ -105,6 +107,12 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]/usr/txtKOMV-KBETR").caretPosition = 15
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
+			If grid.GetCell(iRow, 1).Text = "ZLS3" Then
+				condS = True
+			End If
+			If grid.GetCell(iRow, 1).Text = "ZLD3" Then
+				condD = True
+			End If
 		End If	
 		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 		Set grid = session.findById(tblArea)		
@@ -118,7 +126,6 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]/usr/txtKOMV-KBETR").caretPosition = 15
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
-			'iRow = qtyRows + 1000
 		End If	
 		iRow = iRow + 1
 	Loop
