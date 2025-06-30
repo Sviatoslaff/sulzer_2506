@@ -93,6 +93,8 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	WScript.Sleep 300
 	Do Until iRow > qtyRows
 		'MsgBox "Row: " & intRow
+		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
+		Set grid = session.findById(tblArea)
 		if grid.GetCell(iRow, 1).Text = "ZLS3" Or grid.GetCell(iRow, 1).Text = "ZLD3" Then
 			WScript.Sleep 100
 			grid.GetCell(iRow, 1).setFocus()
@@ -104,6 +106,8 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
 		End If	
+		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
+		Set grid = session.findById(tblArea)		
 		if grid.GetCell(iRow, 1).Text = targetCondition  Then
 			WScript.Sleep 100
 			grid.GetCell(iRow, 1).setFocus()
