@@ -103,8 +103,6 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 			session.findById("wnd[0]/usr/txtKOMV-KBETR").caretPosition = 15
 			session.findById("wnd[0]").sendVKey(0)
 			session.findById("wnd[0]/tbar[0]/btn[3]").press()		
-		
-			session.findById("wnd[0]").sendVKey(0)
 		End If	
 		if grid.GetCell(iRow, 1).Text = targetCondition  Then
 			WScript.Sleep 100
