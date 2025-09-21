@@ -154,8 +154,10 @@ Function selectExcelFile()
         '.InitialFileName = "*.xlsx"
         .FilterIndex = 2
    
-        If .Show = 0 Then MsgBox "You cancelled the operation!": GoTo exit_handler
-        MyFileName = .SelectedItems(1)
+        If .Show = 0 Then MsgBox "You cancelled the operation!"
+        Else
+            MyFileName = .SelectedItems(1)
+        End If    
     End With
     selectExcelFile = MyFileName
     'Set wbk=Workbooks.Open(MyFileName)
