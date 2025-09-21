@@ -145,19 +145,21 @@ Function selectExcel()
 End Function
 
 Function selectExcelFile()
-
+    Dim fd As FileDialog 
     Dim MyFileName 
-    With Application.FileDialog(msoFileDialogOpen)
+    Set fd = Application.FileDialog(msoFileDialogOpen)
+    With fd 
         .AllowMultiSelect = False
         .Title = "Choose an Excel File"
         .ButtonName = "Choose this"
         '.InitialFileName = "*.xlsx"
         .FilterIndex = 2
    
-        If .Show = 0 Then MsgBox "You cancelled the operation!"
+        If .Show = 0 Then 
+            MsgBox "You cancelled the operation!"
         Else
             MyFileName = .SelectedItems(1)
-        End If    
+        End If
     End With
     selectExcelFile = MyFileName
     'Set wbk=Workbooks.Open(MyFileName)
