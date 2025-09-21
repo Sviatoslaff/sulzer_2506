@@ -149,8 +149,8 @@ Function selectExcelFile()
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     Set objShell = CreateObject("Shell.Application")
 
-    Dim objExcelApp
-    Set objExcelApp = CreateObject("Excel.Application")
+    Dim objExcelApp As Excel.Application
+    'Set objExcelApp = CreateObject("Excel.Application")
     objExcelApp.Visible = False ' Keep Excel invisible
     Set objFileDialog = objExcelApp.FileDialog(msoFileDialogOpen) ' or msoFileDialogSaveAs
     With objFileDialog
