@@ -145,23 +145,35 @@ Function selectExcel()
 End Function
 
 Function selectExcelFile()
-    Dim fd As FileDialog 
-    Dim MyFileName 
-    Set fd = Application.FileDialog(msoFileDialogOpen)
-    With fd 
+
+    Set objFSO = CreateObject("Scripting.FileSystemObject")
+    Set objShell = CreateObject("Shell.Application")
+
+    Dim objExcelApp
+    Set objExcelApp = CreateObject("Excel.Application")
+    objExcelApp.Visible = False ' Keep Excel invisible
+    Set objFileDialog = objExcelApp.FileDialog(msoFileDialogOpen) ' or msoFileDialogSaveAs
+    With objFileDialog
         .AllowMultiSelect = False
-        .Title = "Choose an Excel File"
-        .ButtonName = "Choose this"
-        '.InitialFileName = "*.xlsx"
-        .FilterIndex = 2
-   
-        If .Show = 0 Then 
-            MsgBox "You cancelled the operation!"
+        .Title = "Select a file"
+        .Filters.Clear
+        .Filters.Add "Excel Files", "*.xls; *.xlsx", 1
+        .Filters.Add "All Files", "*.*", 2
+        .FilterIndex = 1
+        If .Show = -1 Then ' -1 indicates a file was selected
+            strFilePath = .SelectedItems(1)
+            WScript.Echo "Selected file: " & strFilePath
         Else
-            MyFileName = .SelectedItems(1)
+            WScript.Echo "No file selected."
         End If
     End With
-    selectExcelFile = MyFileName
+    objExcelApp.Quit
+    Set objExcelApp = Nothing
+    Set objFileDialog = Nothing
+    Set objShell = Nothing
+    Set objFSO = Nothing
+
+    selectExcelFile = strFilePath
     'Set wbk=Workbooks.Open(MyFileName)
 
 End Function
