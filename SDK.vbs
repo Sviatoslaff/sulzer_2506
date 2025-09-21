@@ -149,8 +149,8 @@ Function selectExcelFile()
     Set objFSO = CreateObject("Scripting.FileSystemObject")
     Set objShell = CreateObject("Shell.Application")
 
-    Dim objExcelApp As Excel.Application
-    'Set objExcelApp = CreateObject("Excel.Application")
+    Dim objExcelApp
+    Set objExcelApp = CreateObject("Excel.Application")
     objExcelApp.Visible = False ' Keep Excel invisible
     Set objFileDialog = objExcelApp.FileDialog(msoFileDialogOpen) ' or msoFileDialogSaveAs
     With objFileDialog
@@ -177,3 +177,31 @@ Function selectExcelFile()
     'Set wbk=Workbooks.Open(MyFileName)
 
 End Function
+
+Function SelectExcelCom()
+    On Error Resume Next
+    Set objDialog = CreateObject("MSComDlg.CommonDialog")
+    If Err.Number <> 0 Then
+        WScript.Echo "MSComDlg.CommonDialog not available. Please ensure the control is registered."
+        SelectFile = ""
+        Exit Function
+    End If
+    On Error GoTo 0
+
+    objDialog.Filter = "Excel Files (*.xls)|*.xls"
+    objDialog.FilterIndex = 1
+    objDialog.DialogTitle = "Select a File"
+    objDialog.Flags = &H80000 + &H4 + &H8 'OFN_ALLOWMULTISELECT + OFN_EXPLORER + OFN_HIDEREADONLY
+    objDialog.MaxFileSize = 256 ' Essential to prevent errors on some systems
+
+    intResult = objDialog.ShowOpen()
+
+    If intResult = -1 Then ' User clicked OK
+        SelectExcelCom = objDialog.FileName
+    Else ' User clicked Cancel or closed the dialog
+        SelectExcelCom = ""
+    End If
+
+    Set objDialog = Nothing
+End Function
+
