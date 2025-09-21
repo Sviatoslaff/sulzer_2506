@@ -205,3 +205,19 @@ Function SelectExcelCom()
     Set objDialog = Nothing
 End Function
 
+Function BrowseForFileOrFolder()
+    Const BIF_BROWSEINCLUDEFILES = &H4000 ' Includes files in the dialog
+    Const BIF_RETURNONLYFSDIRS = &H1 ' Only allows selection of file system directories
+
+    Set objShell = CreateObject("Shell.Application")
+    Set objFolder = objShell.BrowseForFolder(0, "Select a file or folder:", BIF_BROWSEINCLUDEFILES)
+
+    If Not objFolder Is Nothing Then
+        BrowseForFileOrFolder = objFolder.Self.Path
+    Else
+        BrowseForFileOrFolder = ""
+    End If
+
+    Set objFolder = Nothing
+    Set objShell = Nothing
+End Function
