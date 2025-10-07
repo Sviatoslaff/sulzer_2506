@@ -106,20 +106,6 @@ Sub fill_row(row, material, kolvo, zavod, zatreboval)
     grid.modifyCell row, "AFNAM", zatreboval ' Затребовал
 End Sub
 
-' Set, get and clear ClipBoard text in VBScript
-'   CLEAR - QuickClip("")
-'   SET - QuickClip("Hello World!")
-'   GET - Result = QuickClip(Null)
-Function QuickClip(input)
-    '@description: A quick way to set and get your clipboard.
-    '@author: Jeremy England (SimplyCoded)
-    If IsNull(input) Then
-        QuickClip = CreateObject("HTMLFile").parentWindow.clipboardData.getData("Text")
-        If IsNull(QuickClip) Then QuickClip = ""
-    Else
-        CreateObject("WScript.Shell").Run "mshta.exe javascript:eval(""document.parentWindow.clipboardData.setData('text','" & Replace(Replace(input, "'", "\\u0027"), """", "\\u0022") & "');window.close()"")", 0, True
-    End If
-End Function
 
 ' Диалог выбора файла, создание потоков чтения из файла и записи в файл
 Function selectExcel()
