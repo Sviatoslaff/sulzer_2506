@@ -12,7 +12,12 @@ Dim targetCondition, condValue, condS, condD
 
 '1. Запрашиваем файл QTN и получаем номер qtn, массив значений для последующего заполнения SAP Quotation
 Dim excelFile
-excelFile = selectExcel()
+excelFile = BrowseForFile()
+
+If excelFile = "" Then
+    WScript.Echo "No Excel (xls) file selected."
+	WScript.Quit
+End If
 
 ' Объявляем объект FileSystemObject
 Dim fso, filePath, fileName, arrWords

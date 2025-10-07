@@ -107,25 +107,34 @@ Sub fill_row(row, material, kolvo, zavod, zatreboval)
 End Sub
 
 
-' Диалог выбора файла, создание потоков чтения из файла и записи в файл
-Function selectExcel()
-    Dim wShell, oExec, result
 
-    Set wShell = CreateObject("WScript.Shell")
-    Set oExec  = wShell.Exec("mshta.exe ""about:<input type=file id=FILE accept="".xl*""><script>FILE.click();new ActiveXObject('Scripting.FileSystemObject').GetStandardStream(1).WriteLine(FILE.value);close();resizeTo(0,0);</script>""")
-    result = oExec.StdOut.ReadLine
-     
-    If (result = "") Then  
-        WScript.Quit 
+Function BrowseForFile()
+    Const BIF_BROWSEINCLUDEFILES = &H4000 ' Includes files in the dialog
+    Const BIF_RETURNONLYFSDIRS = &H1 ' Only allows selection of file system directories
+
+    Set objFSO=CreateObject("Scripting.FileSystemObject") 
+    Set objShell = CreateObject("Shell.Application")
+    Set objFolder = objShell.BrowseForFolder(0, "Select a file or folder:", BIF_BROWSEINCLUDEFILES)
+
+    If Not objFolder Is Nothing Then
+        strTempPath = objFolder.Self.Path
+    Else
+        strTempPath = ""
     End If
-    
-    ' excelFile = 
-    ' Set objExcel = CreateObject("Excel.Application")
-    ' Set objWorkbook = objExcel.Workbooks.Open (excelFile)
-    ' Возвращаем нашу книгу
-    selectExcel = result ' Полный путь к выбранному файлу
-    Set oExec = Nothing
-    Set wShell = Nothing
-    'MsgBox(result)
 
+    BrowseForFile = strTempPath
+    ' If strTempPath <> "" Then
+    '     Set objFolder = objFSO.GetFolder(strTempPath) 
+    '     For Each objFile In objFolder.Files     
+    '         strFile = objFile.Name  
+    '         Ext = objFSO.GetExtensionName(objFile) 
+    '         If Ext = "xls" Then
+    '             BrowseForFile = strTempPath & strFile
+    '             Exit For
+    '         End If
+    '     Next
+    ' End If
+
+    Set objFolder = Nothing
+    Set objShell = Nothing
 End Function
