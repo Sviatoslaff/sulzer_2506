@@ -36,7 +36,6 @@ If Not IsNumeric(qtn) Then
 	WScript.Quit
 End If
 
-'WScript.Quit
 
 '2.0 - открываем транзакцию
  session.findById("wnd[0]").maximize
@@ -53,15 +52,8 @@ objWorkbook.Sheets("PMU").Activate
 Set pmu = objWorkbook.Worksheets("PMU")
 Dim iLastRow: iLastRow = CInt(0)
 iLastRow =pmu.Range("A" & pmu.Rows.Count).End(xlUp).Row  
-'WScript.Echo iLastRow
 
 '4. Вставка цен
-
-'session.findById("wnd[0]/tbar[0]/btn[3]").press()
-'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").setFocus
-'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/txtVBAP-ARKTX[4,0]").caretPosition = 2
-'session.findById("wnd[0]").sendVKey(2)
-'session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_ITEM/tabpT\05").select()
 
 session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/ctxtRV45A-MABNR[1,0]").caretPosition = 1
 session.findById("wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4426/subSUBSCREEN_TC:SAPMV45A:4908/tblSAPMV45ATCTRL_U_ERF_KONTRAKT/ctxtRV45A-MABNR[1,0]").setFocus
@@ -82,7 +74,6 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	End If
 	condValue = FormatNumber(condValue,,,,0) 
 	condValue = Replace(condValue, ".", ",")
-	MsgBox condValue
 	' Assign the target condition
 	if condValue  >= 0 Then
 		targetCondition = "ZLS3"
@@ -93,13 +84,11 @@ Do Until ArticlesExcel.Cells(intRow, 31).Value = ""			' 31 - for ZLS3 column in 
 	tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 	Set grid = session.findById(tblArea)
 	qtyRows = grid.rowCount - 1
-	'MsgBox qtyRows
 	iRow = 0
 	condS = False
 	condD = False
 	WScript.Sleep 300
 	Do Until  condS And condD 'iRow > qtyRows
-		'MsgBox "Row: " & intRow
 		tblArea = UserArea.findByName("SAPLV69ATCTRL_KONDITIONEN", "GuiTableControl").Id
 		Set grid = session.findById(tblArea)
 		if grid.GetCell(iRow, 1).Text = "ZLS3" Or grid.GetCell(iRow, 1).Text = "ZLD3" Then
@@ -162,7 +151,6 @@ Function GetExcelArray()
 
 	Dim iLastRow: iLastRow = CInt(0)
    	iLastRow = ws.Range("A" & ws.Rows.Count).End(xlUp).Row  
-	'WScript.Echo iLastRow
 
 	' Считаем, что в 4 строке - начало таблицы для обработки
 	Dim intRow : intRow = 4
@@ -170,17 +158,14 @@ Function GetExcelArray()
 	' Цикл для каждой строки
 	On Error Resume Next
 	Do Until ArticlesExcel.Cells(intRow, firstCol).Value = ""
-		'ReDim Preserve arrExcel(intRow - 4, 6)
-		'WScript.Echo ArticlesExcel.Cells(intRow, firstCol).Value
 		For iCol = firstCol to lastCol
 			arrExcel(intRow - 4, iCol - firstCol) = ArticlesExcel.Cells(intRow, iCol).Value
 		Next 
-		WScript.Echo arrExcel(intRow - 4, 0)
 		intRow = intRow + 1
 	Loop
 	objWorkbook.Close False
 	ArticlesExcel.Quit
-	WScript.Echo Join(arrExcel)
+	'WScript.Echo Join(arrExcel)
 	GetExcelArray = arrExcel
 End Function
 
@@ -240,22 +225,18 @@ For Each serno In arrSerno
 			Set grid = session.findById("wnd[0]/usr/cntlEXTEND/shellcont/shell")
 			
 			qtyRows = grid.rowCount - 1
-			'MsgBox "Rows amount: " & qtyRows
 			visibleRows = grid.VisibleRowCount
 
 			' Цикл для каждой строки
 			'On Error Resume Next
 			intRow = 0
 			Do Until intRow > qtyRows
-				'Err.Clear
-				'MsgBox "Row: " & intRow
 				grid.modifyCell intRow, "TEMPLATE", template
 				grid.currentCellRow = intRow
 				intRow = intRow + 1
 			Loop
 			grid.triggerModified
 			session.findById("wnd[0]/tbar[1]/btn[8]").press
-			'    MsgBox "Next Control - btn[3]", vbSystemModal Or vbInformation
 
 			' It can be error that mat number not found - If for that
 			If session.findById("wnd[1]/tbar[0]/btn[0]", False) Is Nothing Then
@@ -267,7 +248,6 @@ For Each serno In arrSerno
 			
 			If Not bAbort Then
 				session.findById("wnd[0]/tbar[0]/btn[3]").press
-				'    MsgBox "Next Control - wnd[1]/tbar[0]/btn[0]", vbSystemModal Or vbInformation
 				session.findById("wnd[1]/tbar[0]/btn[0]").press
 				dicReport.Add serno, resOK
 			End If

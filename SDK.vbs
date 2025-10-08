@@ -123,17 +123,6 @@ Function BrowseForFile()
     End If
 
     BrowseForFile = strTempPath
-    ' If strTempPath <> "" Then
-    '     Set objFolder = objFSO.GetFolder(strTempPath) 
-    '     For Each objFile In objFolder.Files     
-    '         strFile = objFile.Name  
-    '         Ext = objFSO.GetExtensionName(objFile) 
-    '         If Ext = "xls" Then
-    '             BrowseForFile = strTempPath & strFile
-    '             Exit For
-    '         End If
-    '     Next
-    ' End If
 
     Set objFolder = Nothing
     Set objShell = Nothing
